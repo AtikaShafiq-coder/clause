@@ -4,12 +4,12 @@ from typing import Annotated
 from fastapi import FastAPI, Request
 from pydantic import BaseModel, StringConstraints
 
-from app.services.chat import RagService, Answer
+from app.services.chat import RAGService, Answer
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.rag = RagService()
+    app.state.rag = RAGService()
     yield
     app.state.rag.close()
 
