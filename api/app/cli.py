@@ -1,45 +1,25 @@
-# from services.ingestion import ingest
-# from services.chat import RAGService
 
-# def main():
-#     rag_service = RAGService()
-
-#     try:
-#         query = input("You:").strip()
-#         result = rag_service.ask(query)
-#         print(f"AI: {result.answer}")
-#     except:
-#         pass
-#     finally:
-#         rag_service.close()
-    
-
-# if __name__ == "__main__":
-     
-#     main()
-
-
-
-from app.services.chat import RagService
+from app.services.agent import ClauseAgent
 
 def main():
-    rag_service = RagService()
+    clause_agent = ClauseAgent()
 
     try:
         query = input("You: ").strip()
-        result = rag_service.ask(query)
-        print(f"AI: {result.answer}")
+        result = clause_agent.ask(question=query)
+        print(f"AI: {result}")
 
-        print("\nSources:")
-        for source in result.sources:
-            print(source)
-
+    except (KeyboardInterrupt, EOFError):
+        pass
     finally:
-        rag_service.close()
+        clause_agent.close()
+
 
 
 if __name__ == "__main__":
     main()
+
+
 
     
 
