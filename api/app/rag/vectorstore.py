@@ -1,5 +1,4 @@
-from langchain_qdrant import QdrantVectorStore, FastEmbedSparse, RetrievalMode
-
+from langchain_qdrant import FastEmbedSparse, QdrantVectorStore, RetrievalMode
 
 from app.core.config import Settings, get_embeddings, get_qdrant_client
 
@@ -15,5 +14,5 @@ def get_vector_store(settings: Settings) -> QdrantVectorStore:
         retrieval_mode=RetrievalMode.HYBRID,
         sparse_embedding=FastEmbedSparse(model_name="Qdrant/bm25"),
         vector_name="dense",
-        sparse_vector_name="sparse"
+        sparse_vector_name="sparse",
     )

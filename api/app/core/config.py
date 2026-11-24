@@ -1,4 +1,3 @@
-
 # from functools import lru_cache
 # from pathlib import Path
 
@@ -35,7 +34,7 @@
 #     chat_model: str = "gemini-3.1-flash-lite"
 #     chat_temperature: float = 0
 #     chat_api_key: str = ""
-    
+
 
 #     # ======================================
 #     # EMBEDDINGS
@@ -81,10 +80,10 @@
 #         "You are a  Clause shop customer AI assistant. "
 #         "Answer using ONLY the handbook text you are given."
 #         "Find the one sentence that answers the question and copy its numbers exactly."
-#         "Answer in one or two short sentences. Never mention 'the context, or 'the handbook text'." 
+#         "Answer in one or two short sentences. Never mention 'the context, or 'the handbook text'."
 #         "If the handbook text does not answer the question, reply exactly: "
 #         "\"Clause I dont know.\""
-        
+
 #     )
 
 
@@ -127,7 +126,6 @@ from langchain.embeddings import init_embeddings
 from langchain_core.embeddings import Embeddings
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from qdrant_client import QdrantClient
-
 
 # api/.env
 ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
@@ -184,11 +182,13 @@ class Settings(BaseSettings):
 def get_settings() -> Settings:
     return Settings()
 
+
 def get_embeddings(settings: Settings) -> Embeddings:
     return init_embeddings(
         model=settings.embed_model,
         provider=settings.embed_provider,
     )
+
 
 def get_qdrant_client(settings: Settings) -> QdrantClient:
     return QdrantClient(path=settings.qdrant_path)

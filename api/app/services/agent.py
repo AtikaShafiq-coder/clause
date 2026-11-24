@@ -1,4 +1,4 @@
-# from  langchain.agents import create_agent 
+# from  langchain.agents import create_agent
 # from langchain.messages import HumanMessage
 # from langchain.tools import tool
 
@@ -6,8 +6,8 @@
 
 # class ClauseAgent:
 
-#     def __init__(self)->None:    
-#         self.rag = RAGService()  #instance attribute class type if we  set None then abhi humnay ismay rag ka concept implement nhi kiya   baad mai hum rkhty hain 
+#     def __init__(self)->None:
+#         self.rag = RAGService()  #instance attribute class type if we  set None then abhi humnay ismay rag ka concept implement nhi kiya   baad mai hum rkhty hain
 
 #         @tool(response_format="content_and_artifact")
 #         def search_handbook(question:str):
@@ -52,7 +52,6 @@
 # from app.prompts.loader import get_prompt
 # from app.llm.models import get_chat_model
 # from app.rag.vectorstore import get_vector_store
-
 
 
 # class ClauseAgent:
@@ -100,11 +99,10 @@
 #         result = self.agent.invoke({"messages": [HumanMessage(content=question)]})
 #         messages = result["messages"]
 #         return messages[-1].text
-    
+
 
 #     def close(self) -> None:
 #         self.store.client.close()
-
 
 
 # from langchain.agents import create_agent
@@ -169,13 +167,14 @@
 
 from langchain.agents import create_agent
 from langchain.messages import HumanMessage
+
 # from langchain.tools import tool
 from app.core.config import get_settings
-from app.prompts.loader import get_prompt
 from app.llm.models import get_chat_model
+from app.middleware.stacks import default_stack
+from app.prompts.loader import get_prompt
 from app.rag.vectorstore import get_vector_store
 from app.tools.knowledge.handbook import file_search
-from app.middleware.stacks import default_stack
 
 
 class ClauseAgent:
@@ -220,13 +219,10 @@ class ClauseAgent:
                 version=self.settings.system_prompt_version,
             ),
             middleware=default_stack(self.settings),
-            
         )
 
     def ask(self, question: str) -> str:
-        result = self.agent.invoke({
-            "messages": [HumanMessage(content=question)]
-        })
+        result = self.agent.invoke({"messages": [HumanMessage(content=question)]})
 
         messages = result["messages"]
         return messages[-1].text
@@ -234,4 +230,3 @@ class ClauseAgent:
     def close(self) -> None:
         if hasattr(self, "store") and self.store is not None:
             self.store.client.close()
-
